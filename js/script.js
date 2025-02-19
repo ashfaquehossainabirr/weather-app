@@ -32,30 +32,40 @@ const displayTemp = document.getElementById("temp")
 const description = document.querySelector(".description")
 const searchInput = document.querySelector(".search-bar")
 const searchButton = document.getElementById("search-btn")
+const iconImage = document.querySelector(".icon")
 
 const apiKey = "ee402de4db48c058eded077e228b05aa"
 const city = "dhaka"
 
+
 window.onload = getWeather = async () => {
-    backgroundFunc() 
+    backgroundFunc()
+
     const fetchData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`)
     const api = await fetchData.json()
+
+    const { icon } = api.weather[0]
 
     console.log(api)
     
     displayCity.innerHTML = api.name
     displayTemp.innerHTML = api.main.temp
     description.innerHTML = api.weather[0].description
+    iconImage.src = `https://openweathermap.org/img/wn/${icon}.png`
+
 }
 
 searchButton.addEventListener('click', () => {
     const getWeather = async () => {
         const fetchData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=metric&appid=${apiKey}`)
         const api = await fetchData.json()
+
+        const { icon } = api.weather[0]
         
         displayCity.innerHTML = api.name
         displayTemp.innerHTML = api.main.temp
         description.innerHTML = api.weather[0].description
+        iconImage.src = `https://openweathermap.org/img/wn/${icon}.png`
     }
     
     getWeather()
