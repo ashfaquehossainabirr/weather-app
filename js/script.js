@@ -33,6 +33,8 @@ const description = document.querySelector(".description")
 const searchInput = document.querySelector(".search-bar")
 const searchButton = document.getElementById("search-btn")
 const iconImage = document.querySelector(".icon")
+const displayHumidity = document.getElementById("humidity")
+const displayWind = document.getElementById("wind")
 
 const apiKey = "ee402de4db48c058eded077e228b05aa"
 const city = "dhaka"
@@ -52,6 +54,8 @@ window.onload = getWeather = async () => {
     displayTemp.innerHTML = api.main.temp
     description.innerHTML = api.weather[0].description
     iconImage.src = `https://openweathermap.org/img/wn/${icon}.png`
+    displayHumidity.innerHTML = api.main.humidity
+    displayWind.innerHTML = api.wind.speed
 
 }
 
@@ -66,6 +70,8 @@ searchButton.addEventListener('click', () => {
         displayTemp.innerHTML = api.main.temp
         description.innerHTML = api.weather[0].description
         iconImage.src = `https://openweathermap.org/img/wn/${icon}.png`
+        displayHumidity.innerHTML = api.main.humidity
+        displayWind.innerHTML = api.wind.speed
     }
     
     getWeather()
