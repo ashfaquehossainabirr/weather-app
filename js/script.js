@@ -60,20 +60,24 @@ window.onload = getWeather = async () => {
 }
 
 searchButton.addEventListener('click', () => {
-    const getWeather = async () => {
-        const fetchData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=metric&appid=${apiKey}`)
-        const api = await fetchData.json()
-
-        const { icon } = api.weather[0]
-        
-        displayCity.innerHTML = api.name
-        displayTemp.innerHTML = api.main.temp
-        description.innerHTML = api.weather[0].description
-        iconImage.src = `https://openweathermap.org/img/wn/${icon}.png`
-        displayHumidity.innerHTML = api.main.humidity
-        displayWind.innerHTML = api.wind.speed
-    }
+    if(searchInput.value == "") {
+        alert("Please enter a city name")
+    } else {
+        const getWeather = async () => {
+            const fetchData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=metric&appid=${apiKey}`)
+            const api = await fetchData.json()
     
-    getWeather()
-    searchInput.value = ""
+            const { icon } = api.weather[0]
+            
+            displayCity.innerHTML = api.name
+            displayTemp.innerHTML = api.main.temp
+            description.innerHTML = api.weather[0].description
+            iconImage.src = `https://openweathermap.org/img/wn/${icon}.png`
+            displayHumidity.innerHTML = api.main.humidity
+            displayWind.innerHTML = api.wind.speed
+        }
+        
+        getWeather()
+        searchInput.value = ""
+    }
 })
