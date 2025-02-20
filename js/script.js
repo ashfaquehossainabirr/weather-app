@@ -48,8 +48,6 @@ window.onload = getWeather = async () => {
 
     const { icon } = api.weather[0]
 
-    console.log(api)
-    
     displayCity.innerHTML = api.name
     displayTemp.innerHTML = Math.round(api.main.temp)
     description.innerHTML = api.weather[0].description
