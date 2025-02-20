@@ -51,7 +51,7 @@ window.onload = getWeather = async () => {
     console.log(api)
     
     displayCity.innerHTML = api.name
-    displayTemp.innerHTML = api.main.temp
+    displayTemp.innerHTML = Math.round(api.main.temp)
     description.innerHTML = api.weather[0].description
     iconImage.src = `https://openweathermap.org/img/wn/${icon}.png`
     displayHumidity.innerHTML = api.main.humidity
@@ -70,7 +70,7 @@ searchButton.addEventListener('click', () => {
             const { icon } = api.weather[0]
             
             displayCity.innerHTML = api.name
-            displayTemp.innerHTML = api.main.temp
+            displayTemp.innerHTML = Math.round(api.main.temp)
             description.innerHTML = api.weather[0].description
             iconImage.src = `https://openweathermap.org/img/wn/${icon}.png`
             displayHumidity.innerHTML = api.main.humidity
