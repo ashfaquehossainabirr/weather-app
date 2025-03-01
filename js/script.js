@@ -3,9 +3,9 @@
 VanillaTilt.init(document.querySelectorAll(".card"), {
     max: 4,
     speed: 800,
-scale: 1.03,
-glare: true,
-"max-glare": 0.5,
+    scale: 1.03,
+    glare: true,
+    "max-glare": 0.5,
 });
 
 
@@ -41,20 +41,23 @@ const city = "dhaka"
 
 
 window.onload = getWeather = async () => {
-    backgroundFunc()
+    try {
+        backgroundFunc()
 
-    const fetchData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`)
-    const api = await fetchData.json()
+        const fetchData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`)
+        const api = await fetchData.json()
 
-    const { icon } = api.weather[0]
-
-    displayCity.innerHTML = api.name
-    displayTemp.innerHTML = Math.round(api.main.temp)
-    description.innerHTML = api.weather[0].description
-    iconImage.src = `https://openweathermap.org/img/wn/${icon}.png`
-    displayHumidity.innerHTML = api.main.humidity
-    displayWind.innerHTML = api.wind.speed
-
+        const { icon } = api.weather[0]
+        
+        displayCity.innerHTML = api.name
+        displayTemp.innerHTML = Math.round(api.main.temp)
+        description.innerHTML = api.weather[0].description
+        iconImage.src = `https://openweathermap.org/img/wn/${icon}.png`
+        displayHumidity.innerHTML = api.main.humidity
+        displayWind.innerHTML = api.wind.speed
+    } catch (err) {
+        console.error(err)
+    }
 }
 
 searchButton.addEventListener('click', () => {
@@ -62,17 +65,21 @@ searchButton.addEventListener('click', () => {
         alert("Please enter a city name")
     } else {
         const getWeather = async () => {
-            const fetchData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=metric&appid=${apiKey}`)
-            const api = await fetchData.json()
-    
-            const { icon } = api.weather[0]
-            
-            displayCity.innerHTML = api.name
-            displayTemp.innerHTML = Math.round(api.main.temp)
-            description.innerHTML = api.weather[0].description
-            iconImage.src = `https://openweathermap.org/img/wn/${icon}.png`
-            displayHumidity.innerHTML = api.main.humidity
-            displayWind.innerHTML = api.wind.speed
+            try {
+                const fetchData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=metric&appid=${apiKey}`)
+                const api = await fetchData.json()
+        
+                const { icon } = api.weather[0]
+                
+                displayCity.innerHTML = api.name
+                displayTemp.innerHTML = Math.round(api.main.temp)
+                description.innerHTML = api.weather[0].description
+                iconImage.src = `https://openweathermap.org/img/wn/${icon}.png`
+                displayHumidity.innerHTML = api.main.humidity
+                displayWind.innerHTML = api.wind.speed
+            } catch (err) {
+                console.error(err)
+            }
         }
         
         getWeather()
