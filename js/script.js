@@ -66,7 +66,8 @@ searchButton.addEventListener('click', () => {
     } else {
         const getWeather = async () => {
             try {
-                const fetchData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=metric&appid=${apiKey}`)
+                let searchInputValue = searchInput.value.toLowerCase()
+                const fetchData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchInputValue}&units=metric&appid=${apiKey}`)
                 const api = await fetchData.json()
         
                 const { icon } = api.weather[0]
