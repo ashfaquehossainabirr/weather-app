@@ -87,3 +87,34 @@ searchButton.addEventListener('click', () => {
         searchInput.value = ""
     }
 })
+
+searchInput.addEventListener('keyup', (e) => {
+    if(e.key == "Enter") {
+        if(searchInput.value == "") {
+            alert("Please enter a city name")
+        } else {
+            const getWeather = async () => {
+                try {
+                    let searchInputValue = searchInput.value.toLowerCase()
+                    const fetchData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchInputValue}&units=metric&appid=${apiKey}`)
+                    const api = await fetchData.json()
+            
+                    const { icon } = api.weather[0]
+                    
+                    displayCity.innerHTML = api.name
+                    displayTemp.innerHTML = Math.round(api.main.temp)
+                    description.innerHTML = api.weather[0].description
+                    iconImage.src = `https://openweathermap.org/img/wn/${icon}.png`
+                    displayHumidity.innerHTML = api.main.humidity
+                    displayWind.innerHTML = api.wind.speed
+                } catch (err) {
+                    console.error(err)
+                }
+            }
+            
+            getWeather()
+            searchInput.value = ""
+            backgroundFunc()
+        }
+    }
+})
